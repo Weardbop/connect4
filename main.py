@@ -111,14 +111,14 @@ def process_event():
                         row = get_next_open_row(col)
                         drop_piece(row, col, player_turn)
                         placed = True
-                        if check_win(1):
+                        if check_win(player_turn):
                             game_over = True
                     else:
                         row = get_next_open_row(col)
                         drop_piece(row, col, player_turn)
                         placed = True
 
-                        if check_win(2):
+                        if check_win(player_turn):
                             game_over = True
 
             #print(board)
