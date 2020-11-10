@@ -107,19 +107,11 @@ def process_event():
                 col = int(pygame.key.name(event.key))
 
                 if not is_full(col):
-                    if player_turn == 1:
-                        row = get_next_open_row(col)
-                        drop_piece(row, col, player_turn)
-                        placed = True
-                        if check_win(player_turn):
-                            game_over = True
-                    else:
-                        row = get_next_open_row(col)
-                        drop_piece(row, col, player_turn)
-                        placed = True
-
-                        if check_win(player_turn):
-                            game_over = True
+                    row = get_next_open_row(col)
+                    drop_piece(row, col, player_turn)
+                    placed = True
+                    if check_win(player_turn):
+                        game_over = True
 
             #print(board)
             render_board()
