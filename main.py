@@ -1,4 +1,4 @@
-import numpy as np, pygame, sys
+import numpy as np, pygame, sys, random
 
 ROWS = 6
 COLUMNS = 7
@@ -99,31 +99,50 @@ def game_end():
 def process_event():
     global game_over, player_turn
 
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            placed = False
-            if event.key == pygame.K_0 or event.key == pygame.K_1 or event.key == pygame.K_2 or event.key == pygame.K_3 \
-                    or event.key == pygame.K_4 or event.key == pygame.K_5 or event.key == pygame.K_6:
-                col = int(pygame.key.name(event.key))
+    if player_turn == 1:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                placed = False
+                if event.key == pygame.K_0 or event.key == pygame.K_1 or event.key == pygame.K_2 or event.key == pygame.K_3 \
+                        or event.key == pygame.K_4 or event.key == pygame.K_5 or event.key == pygame.K_6:
+                    col = int(pygame.key.name(event.key))
 
-                if not is_full(col):
-                    row = get_next_open_row(col)
-                    drop_piece(row, col, player_turn)
-                    placed = True
-                    if check_win(player_turn):
-                        game_over = True
+                    if not is_full(col):
+                        row = get_next_open_row(col)
+                        drop_piece(row, col, player_turn)
+                        placed = True
+                        if check_win(player_turn):
+                            game_over = True
 
-            #print(board)
-            render_board()
+                #print(board)
+                render_board()
 
-            if placed:
-                if player_turn == 1:
-                    player_turn = 2
-                else:
-                    player_turn = 1
+                if placed:
+                    if player_turn == 1:
+                        player_turn = 2
 
-        if event.type == pygame.QUIT:
-            sys.exit()
+
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+    if player_turn == 2:
+        col = random.randint(0,6)
+        placed = False
+
+        if not is_full(col):
+            row = get_next_open_row(col)
+            drop_piece(row, col, player_turn)
+            placed = True
+            if check_win(player_turn):
+                game_over = True
+
+        # print(board)
+        render_board()
+
+        if placed:
+            if player_turn == 2:
+                player_turn = 1
+
 
 
 def main():
